@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(value = { "$type", "timing" })
-public class ArrivalPrediction {
+public class Arrival {
 
   /**
    * The identifier for the prediction
@@ -107,157 +107,104 @@ public class ArrivalPrediction {
   private String modeName;
 
 
-  public String getId() {
-    return id;
-  }
-
-  public void setId(String id) {
-    this.id = id;
-  }
-
-  public Integer getOperationType() {
-    return operationType;
-  }
-
-  public void setOperationType(Integer operationType) {
-    this.operationType = operationType;
-  }
-
-  public String getVehicleId() {
-    return vehicleId;
-  }
-
-  public void setVehicleId(String vehicleId) {
-    this.vehicleId = vehicleId;
-  }
-
-  public String getNaptanId() {
-    return naptanId;
-  }
-
-  public void setNaptanId(String naptanId) {
-    this.naptanId = naptanId;
-  }
-
-  public String getStationName() {
-    return stationName;
-  }
-
-  public void setStationName(String stationName) {
-    this.stationName = stationName;
-  }
-
-  public String getLineId() {
-    return lineId;
-  }
-
-  public void setLineId(String lineId) {
-    this.lineId = lineId;
-  }
-
-  public String getLineName() {
-    return lineName;
-  }
-
-  public void setLineName(String lineName) {
-    this.lineName = lineName;
-  }
-
-  public String getPlatformName() {
-    return platformName;
-  }
-
-  public void setPlatformName(String platformName) {
-    this.platformName = platformName;
-  }
-
-  public String getDirection() {
-    return direction;
-  }
-
-  public void setDirection(String direction) {
-    this.direction = direction;
-  }
-
-  public String getBearing() {
-    return bearing;
-  }
-
-  public void setBearing(String bearing) {
-    this.bearing = bearing;
-  }
-
-  public String getDestinationNaptanId() {
-    return destinationNaptanId;
-  }
-
-  public void setDestinationNaptanId(String destinationNaptanId) {
-    this.destinationNaptanId = destinationNaptanId;
-  }
-
-  public String getDestinationName() {
-    return destinationName;
-  }
-
-  public void setDestinationName(String destinationName) {
-    this.destinationName = destinationName;
-  }
-
-  public LocalDateTime getTimestamp() {
-    return timestamp;
-  }
-
-  public void setTimestamp(LocalDateTime timestamp) {
-    this.timestamp = timestamp;
+  public String getDestinationStation() {
+    // Strip out unnecessary terms
+    return destinationName.replace("Underground Station", "").replace("DLR Station", "");
   }
 
   public Integer getTimeToStation() {
     return timeToStation;
   }
 
-  public void setTimeToStation(Integer timeToStation) {
-    this.timeToStation = timeToStation;
+  public String getMinutesToArrival() {
+    StringBuilder builder = new StringBuilder();
+    builder.append(timeToStation / 60);
+    builder.append(" ");
+    builder.append(timeToStation / 60 != 1 ? "mins" : "min");
+    return builder.toString();
   }
 
-  public String getCurrentLocation() {
-    return currentLocation;
+  public String getLineId() {
+    return lineId;
+  }
+
+
+  public void setId(String id) {
+    this.id = id;
+  }
+
+  public void setOperationType(Integer operationType) {
+    this.operationType = operationType;
+  }
+
+  public void setVehicleId(String vehicleId) {
+    this.vehicleId = vehicleId;
+  }
+
+  public void setNaptanId(String naptanId) {
+    this.naptanId = naptanId;
+  }
+
+  public void setStationName(String stationName) {
+    this.stationName = stationName;
+  }
+
+  public void setLineId(String lineId) {
+    this.lineId = lineId;
+  }
+
+  public void setLineName(String lineName) {
+    this.lineName = lineName;
+  }
+
+  public void setPlatformName(String platformName) {
+    this.platformName = platformName;
+  }
+
+  public void setDirection(String direction) {
+    this.direction = direction;
+  }
+
+  public void setBearing(String bearing) {
+    this.bearing = bearing;
+  }
+
+  public void setDestinationNaptanId(String destinationNaptanId) {
+    this.destinationNaptanId = destinationNaptanId;
+  }
+
+  public void setDestinationName(String destinationName) {
+    this.destinationName = destinationName;
+  }
+
+  public void setTimestamp(LocalDateTime timestamp) {
+    this.timestamp = timestamp;
+  }
+
+  public void setTimeToStation(Integer timeToStation) {
+    this.timeToStation = timeToStation;
   }
 
   public void setCurrentLocation(String currentLocation) {
     this.currentLocation = currentLocation;
   }
 
-  public String getTowards() {
-    return towards;
-  }
-
   public void setTowards(String towards) {
     this.towards = towards;
-  }
-
-  public LocalDateTime getExpectedArrival() {
-    return expectedArrival;
   }
 
   public void setExpectedArrival(LocalDateTime expectedArrival) {
     this.expectedArrival = expectedArrival;
   }
 
-  public LocalDateTime getTimeToLive() {
-    return timeToLive;
-  }
-
   public void setTimeToLive(LocalDateTime timeToLive) {
     this.timeToLive = timeToLive;
-  }
-
-  public String getModeName() {
-    return modeName;
   }
 
   public void setModeName(String modeName) {
     this.modeName = modeName;
   }
+
 
   @Override
   public String toString() {
