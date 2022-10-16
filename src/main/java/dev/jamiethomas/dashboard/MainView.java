@@ -9,10 +9,13 @@ import org.apache.commons.compress.utils.Lists;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.vaadin.flow.component.dependency.CssImport;
+import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.router.Route;
 
 @Route
@@ -34,11 +37,32 @@ public class MainView extends VerticalLayout {
     arrivalPredictions.sort((a,b) -> a.getTimeToStation().compareTo(b.getTimeToStation()));
 
     Grid<Arrival> grid = new Grid<>(Arrival.class, false);
-    grid.addColumn(Arrival::getDestinationStation).setHeader("Destination");
-    grid.addColumn(Arrival::getMinutesToArrival).setHeader("Arriving in");
+    grid.addColumn(Arrival::getDestinationStation).setHeader("Destination").setAutoWidth(true);
+    grid.addColumn(Arrival::getMinutesToArrival).setHeader("Arriving in").setAutoWidth(true);
     grid.setItems(arrivalPredictions);
     grid.setClassNameGenerator(Arrival::getLineId);
+    grid.setItemDetailsRenderer(new ComponentRenderer<>(ArrivalAdditionalInfoFormLayout::new, ArrivalAdditionalInfoFormLayout::setArrivalAdditionalInfo));
     add(grid);
+  }
+
+
+  private static class ArrivalAdditionalInfoFormLayout extends FormLayout {
+    private static final long serialVersionUID = 2L;
+    private final TextField platformField = new TextField("Platform");
+    private final TextField currentLocation = new TextField("Current location");
+
+    public ArrivalAdditionalInfoFormLayout() {
+      platformField.setReadOnly(true);
+      add(platformField);
+
+      currentLocation.setReadOnly(true);
+      add(currentLocation);
+    }
+
+    public void setArrivalAdditionalInfo(Arrival person) {
+      platformField.setValue(person.getPlatformName());
+      currentLocation.setValue(person.getCurrentLocation());
+    }
   }
 
 

@@ -128,6 +128,13 @@ public class Arrival {
     return lineId;
   }
 
+  public String getPlatformName() {
+    return platformName;
+  }
+
+  public String getCurrentLocation() {
+    return currentLocation;
+  }
 
   public void setId(String id) {
     this.id = id;
