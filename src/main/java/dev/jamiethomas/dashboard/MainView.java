@@ -8,7 +8,6 @@ import org.apache.commons.compress.utils.Lists;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.H2;
@@ -40,8 +39,6 @@ public class MainView extends VerticalLayout {
     grid.setItems(arrivalPredictions);
     grid.setClassNameGenerator(Arrival::getLineId);
     add(grid);
-
-    add(new Text(arrivalPredictions.toString()));
   }
 
 
